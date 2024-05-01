@@ -48,6 +48,9 @@ Document Q&A, Chat History(caching), Resource Configuration.
   Download [docker-compose-gpu.yml](https://github.com/nagaraj-real/localaipilot-api/blob/b8e7583e689d4e1715b386437a01a427f88ee605/recipes/docker-compose-gpu.yml)
 
   ```bash
+
+  wget https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml -o docker-compose-gpu.yaml
+
   docker compose -f docker-compose-gpu.yml up
   ```
 
@@ -56,6 +59,8 @@ Document Q&A, Chat History(caching), Resource Configuration.
   Download [docker-compose-cpu.yml](https://github.com/nagaraj-real/localaipilot-api/blob/b8e7583e689d4e1715b386437a01a427f88ee605/recipes/docker-compose-cpu.yml)
 
   ```bash
+  wget https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml -o docker-compose-cpu.yaml
+
   docker compose -f docker-compose-cpu.yml up
   ```
 
