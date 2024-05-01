@@ -32,8 +32,14 @@ redis_password= os.getenv("REDIS_PASSWORD")
 redis_expiry= os.getenv("REDIS_EXPIRY")
 
 if redis_host and redis_port:
-    r = Redis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
-    initialize(r)
+    try:
+        r = Redis(host=redis_host,port=redis_port,password=redis_password,decode_responses=True)
+        initialize(r)
+        response = r.client_list()
+    except:
+        r = None
+        app.logger.info("Redis not loaded")
+
 
 
 def retrieveOrCreateChatMemory(chat_id,context=None,context_type=None,language_id=None):

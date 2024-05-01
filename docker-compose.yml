@@ -23,17 +23,16 @@ services:
   llmapi:
     build:
       context: ./
-      dockerfile: prod.Dockerfile
+      dockerfile: dockerfile
     depends_on:
       - ollama
-      - cache
     ports:
       - "5000:5000"
     networks:
       - llm-network
     volumes:
       - ragdir:/ragdir
-      - ragstorage:/app/storage
+      - ragstorage:/ragstorage
       - ./:/app
     container_name: llm-api-container
     environment:
@@ -51,17 +50,17 @@ services:
       REDIS_PASSWORD: redis-stack
       REDIS_EXPIRY: 3600
 
-  cache:
-    image: redis/redis-stack:latest
-    restart: always
-    networks:
-      - llm-network
-    ports:
-      - "6379:6379"
-    environment:
-      REDIS_ARGS: "--save 900 1 --requirepass redis-stack"
-    volumes:
-      - cachedir:/data
+  # cache:
+  #   image: redis/redis-stack:latest
+  #   restart: always
+  #   networks:
+  #     - llm-network
+  #   ports:
+  #     - "6379:6379"
+  #   environment:
+  #     REDIS_ARGS: "--requirepass redis-stack"
+  #   volumes:
+  #     - cachedir:/data
 
 networks:
   llm-network:

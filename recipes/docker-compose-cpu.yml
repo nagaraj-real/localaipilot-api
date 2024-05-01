@@ -40,18 +40,18 @@ services:
       REDIS_PASSWORD: redis-stack
       REDIS_EXPIRY: 3600
 
-  # Cache service is plug and play can be turned off if not needed
-  cache:
-    image: redis/redis-stack:latest
-    restart: always
-    networks:
-      - llm-network
-    ports:
-      - "6379:6379"
-    environment:
-      REDIS_ARGS: "--save 900 1 --requirepass redis-stack"
-    volumes:
-      - cachedir:/data
+  # Cache service is plug and play can be turned on if needed
+  # cache:
+  #   image: redis/redis-stack:latest
+  #   restart: always
+  #   networks:
+  #     - llm-network
+  #   ports:
+  #     - "6379:6379"
+  #   environment:
+  #     REDIS_ARGS: "--requirepass redis-stack"
+  #   volumes:
+  #     - cachedir:/data
 
 networks:
   llm-network:
