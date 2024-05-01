@@ -1,10 +1,6 @@
-# Local AI Pilot
-
-VS code extension which supports code chat, code completion using local running ollama models. Allows fine grained customization using docker containers.
-
 ## Standalone mode
 
-In standalone (non-container) mode, the extension connects directly to running Ollama instance.
+In standalone (non-container) mode, the extension connects directly to a running Ollama instance.
 
 Supported features: Code chat, Code completion, Explain/Review/Fix Code
 
@@ -22,8 +18,8 @@ Supported features: Code chat, Code completion, Explain/Review/Fix Code
 
 ## Container mode (Recommended)
 
-In container mode, the extension connects to a local API layer for fine grained customizations.
-Also comes in built with ollama container which can be turned off if you already have a local instance running.
+In container mode, the extension connects to an API Container that allows for more customizations
+and bridges an Ollama running container
 
 Supported features - Code chat, Code completion,Explain/Review/Fix Code,
 Document Q&A, Chat History(caching), Resource Configuration.
@@ -41,19 +37,7 @@ Document Q&A, Chat History(caching), Resource Configuration.
 
 #### 1. Start containers using docker compose
 
-- Download docker compose file and start
-
-  #### Nvidia GPU
-
-  Download [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml) and start.
-
-  ```sh
-  curl  \
-  https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml \
-  -o docker-compose-gpu.yaml
-
-  docker compose -f docker-compose-gpu.yml up
-  ```
+- Download docker compose file(CPU/GPU) and start
 
   #### CPU
 
@@ -67,7 +51,20 @@ Document Q&A, Chat History(caching), Resource Configuration.
   docker compose -f docker-compose-cpu.yml up
   ```
 
-  This will start ollama, LLM API and Redis containers.
+  #### NVIDIA® GPU
+
+  Download [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml) and start.
+
+  ```sh
+  curl  \
+  https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml \
+  -o docker-compose-gpu.yaml
+
+  docker compose -f docker-compose-gpu.yml up
+  ```
+
+  This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned
+  on for storing/searching chat history.
 
 #### 2. Pull ollama models
 

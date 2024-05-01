@@ -21,7 +21,7 @@ services:
               capabilities: [gpu]
 
   llmapi:
-    image: nag23101990/local-llm-api
+    image: nagaraj23/local-llm-api
     depends_on:
       - ollama
     ports:

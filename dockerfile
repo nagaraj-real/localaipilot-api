@@ -10,6 +10,8 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
+RUN pip install docx2txt
+
 RUN pip install gunicorn
 
 ENV PYTHONDONTWRITEBYTECODE 1
