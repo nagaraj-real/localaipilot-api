@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - llm-network
+    volumes:
+      - ollama:/root/.ollama
+      - ragdir:/ragdir
+
+    container_name: ollama-container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  llmapi:
+    build:
+      context: ./
+      dockerfile: prod.Dockerfile
+    depends_on:
+      - ollama
+      - cache
+    ports:
+      - "5000:5000"
+    networks:
+      - llm-network
+    volumes:
+      - ragdir:/ragdir
+      - ragstorage:/app/storage
+      - ./:/app
+    container_name: llm-api-container
+    environment:
+      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4 --reload
+      MODEL_NAME: local/gemma:2b
+      CODE_MODEL_NAME: local/codegemma:2b
+      EMBED_MODEL_NAME: local/nomic-embed-text
+      API_KEY:
+      EMBED_API_KEY:
+      API_TIMEOUT: 600
+      OLLAMA_HOST: ollama
+      OLLAMA_PORT: 11434
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis-stack
+      REDIS_EXPIRY: 3600
+
+  cache:
+    image: redis/redis-stack:latest
+    restart: always
+    networks:
+      - llm-network
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_ARGS: "--save 900 1 --requirepass redis-stack"
+    volumes:
+      - cachedir:/data
+
+networks:
+  llm-network:
+
+volumes:
+  ollama:
+  ragstorage:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/ragstorage
+  ragdir:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/ragdir
+  cachedir:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/cachedir
