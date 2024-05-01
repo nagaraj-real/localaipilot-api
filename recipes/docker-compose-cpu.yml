@@ -14,8 +14,7 @@ services:
     container_name: ollama-container
 
   llmapi:
-    build:
-      context: ../
+    image: nag23101990/local-llm-api
     depends_on:
       - ollama
       - cache
