@@ -149,6 +149,7 @@ def ragingest():
         rag_ingest()
         return jsonify({"chatResponse": "Ingestion complete !!"})
     except Exception as e:
+        app.logger.error(f"error: {e}")
         raise Exception("Ingestion failed")
 
 @app.route("/api/chatHistory/<chat_id>", methods = ['DELETE'])
@@ -208,9 +209,11 @@ def ragchat():
     chat_response = rag_chat(query,stream=is_stream)
     if is_stream:
         def gen():
+            response_txt=""
             for r in chat_response.response_gen:
                 app.logger.info(f"Delta from llm: {r}")
-                yield r
+                response_txt+=r
+                yield response_txt
         return Response(gen())
     else:
         return jsonify({"chatResponse": str(chat_response)})

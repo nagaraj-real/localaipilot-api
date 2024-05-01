@@ -16,7 +16,7 @@ embed_llm= get_embed_llm()
 
 Settings.embed_model=embed_llm
 
-PERSIST_DIR = "./storage"
+PERSIST_DIR = "/ragstorage"
 
 def chat_with_llm(messages):
      resp = chat_llm.chat(messages)

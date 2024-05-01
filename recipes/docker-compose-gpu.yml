@@ -24,14 +24,13 @@ services:
     image: nag23101990/local-llm-api
     depends_on:
       - ollama
-      - cache
     ports:
       - "5000:5000"
     networks:
       - llm-network
     volumes:
       - ragdir:/ragdir
-      - ragstorage:/app/storage
+      - ragstorage:/ragstorage
     container_name: llm-api-container
     environment:
       GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4
@@ -48,6 +47,7 @@ services:
       REDIS_PASSWORD: redis-stack
       REDIS_EXPIRY: 3600
 
+  # Cache service is plug and play can be turned off if not needed
   cache:
     image: redis/redis-stack:latest
     restart: always
