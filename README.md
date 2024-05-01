@@ -45,15 +45,17 @@ Document Q&A, Chat History(caching), Resource Configuration.
 
   #### Nvidia GPU
 
+  Download [docker-compose-gpu.yml](https://github.com/nagaraj-real/localaipilot-api/blob/b8e7583e689d4e1715b386437a01a427f88ee605/recipes/docker-compose-gpu.yml)
+
   ```bash
-  wget docker-compose-gpu.yml
   docker compose -f docker-compose-gpu.yml up
   ```
 
   #### CPU
 
+  Download [docker-compose-cpu.yml](https://github.com/nagaraj-real/localaipilot-api/blob/b8e7583e689d4e1715b386437a01a427f88ee605/recipes/docker-compose-cpu.yml)
+
   ```bash
-  wget docker-compose-cpu.yml
   docker compose -f docker-compose-cpu.yml up
   ```
 
