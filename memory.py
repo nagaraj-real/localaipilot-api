@@ -13,7 +13,7 @@ class ChatMemory:
 
     def augment_memory(self,message:list[ChatMessage] ):
         self.memory+= message
-        log.info(f"ChatId: {self.chatId} Memory:{self.memory}")
+        log.debug(f"ChatId: {self.chatId} Memory:{self.memory}")
         return self.memory
 
     def clear_memory(self):

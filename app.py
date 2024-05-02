@@ -1,19 +1,17 @@
 from flask import Flask, Response,jsonify,make_response
 from flask import request
-from chat import chat_with_memory,complete_code,rag_chat,rag_ingest
-from memory import ChatMemory
-from utils import get_init_system_message
 import logging
 import uuid
 import os
 from redis import Redis
 
 from redisutil import initialize, search_chat
-
+LOG_LEVEL= os.getenv("LOG_LEVEL")
 app = Flask(__name__)
-app.logger.setLevel(app.config.get("LOG_LEVEL", "INFO"))
+app.logger.setLevel(app.config.get("LOG_LEVEL", LOG_LEVEL or "INFO"))
 chat_model_name= os.getenv("MODEL_NAME")
 code_model_name= os.getenv("CODE_MODEL_NAME")
+app.logger.handlers.clear()
 handler = logging.StreamHandler()
 handler.setLevel(app.logger.level)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -21,6 +19,10 @@ handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
 app.logger.info('loaded Flask')
+
+from chat import chat_with_memory,complete_code,rag_chat,rag_ingest
+from memory import ChatMemory
+from utils import get_init_system_message
 
 endpoint_busy = False
 
@@ -68,6 +70,7 @@ def substring_excluding_stop(original_string: str, stop_string: str):
 @app.errorhandler(400)
 def bad_request(error):
     message = str(error)
+    app.logger.error(f"An unhandled error occurred: {error}")
     return make_response(jsonify({"error": message}), 400)
 
 @app.errorhandler(404)
@@ -94,7 +97,7 @@ def health():
 @app.route("/api/query", methods = ['POST'])
 def query():
     data = request.get_json()
-    app.logger.info(f"Chat Request Recieved: {data}")
+    app.logger.debug(f"Chat Request Recieved: {data}")
     query = data.get('query')
     chatId = data.get('chatId')
     context= data.get('context')
@@ -114,19 +117,19 @@ def query():
                 for r in chat_response:
                     final_response = r.message
                     yield r.message.content
-                app.logger.info(f"chat from llm: {final_response}")
+                app.logger.debug(f"Chat Response Recieved: {final_response}")
                 memory.augment_memory([final_response])
             return Response(gen())
         else:
             response = jsonify({"chatId":chatId,"chatResponse": str(chat_response),"memory": str(memory.memory)})
-            app.logger.info(f"Chat Response Recieved: {response}")
+            app.logger.debug(f"Chat Response Recieved: {response}")
     return response
 
 
 @app.route("/api/complete", methods = ['POST'])
 def chat_complete():
     data = request.get_json()
-    app.logger.info(f"Completion Request Recieved: {data}")
+    app.logger.debug(f"Completion Request Recieved: {data}")
     prefix_code = data.get('prefix_code')
     suffix_code = data.get('suffix_code')
     pre_context = data.get('pre_context')
@@ -134,15 +137,15 @@ def chat_complete():
     stop_string= '<|file_separator|>'
     if is_stream:
         completion_response = complete_code(prefix_code,suffix_code,pre_context,is_stream)
-        app.logger.info(f"completion_response: {completion_response}")
+        app.logger.debug(f"completion_response: {completion_response}")
         def gen():
             for r in completion_response:
                 if stop_string in r.delta:
                     index = r.delta.index(stop_string)
-                    app.logger.info(f"Delta from llm: {r.delta}")
+                    app.logger.debug(f"Delta from llm: {r.delta}")
                     yield r.delta[:index]  # Yield text before stop string
                     break
-                app.logger.info(f"Delta from llm: {r.delta}")
+                app.logger.debug(f"Delta from llm: {r.delta}")
                 yield r.delta
         return Response(gen())
     else:
@@ -170,7 +173,7 @@ def deleteChatHistory(chat_id):
                     r.expire(f"chathistory:{chat_id}",redis_expiry)
                     r.expire(f"chatmessage:{chat_id}",redis_expiry)
             del chat_history
-            app.logger.info(f"chatHistoryDict after deletion: {chat_memory_dict}")
+            app.logger.debug(f"chatHistoryDict after deletion: {chat_memory_dict}")
             return jsonify({"chatResponse": f"{chat_id} deletion complete"})
         else:
             return jsonify({"chatResponse": f"{chat_id} not found to delete"}),404
@@ -209,7 +212,7 @@ def searchChatHistory():
 @app.route("/api/ragchat", methods = ['POST'])
 def ragchat():
     data = request.get_json()
-    app.logger.info(f"Chat Request Recieved: {data}")
+    app.logger.debug(f"Chat Request Recieved: {data}")
     query = data.get('query')
     is_stream = data.get('stream')
     chat_response = rag_chat(query,stream=is_stream)
@@ -217,7 +220,7 @@ def ragchat():
         def gen():
             response_txt=""
             for r in chat_response.response_gen:
-                app.logger.info(f"Delta from llm: {r}")
+                app.logger.debug(f"Delta from llm: {r}")
                 response_txt+=r
                 yield response_txt
         return Response(gen())

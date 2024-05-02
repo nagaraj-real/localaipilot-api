@@ -27,6 +27,7 @@ services:
     container_name: llm-api-container
     environment:
       GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4
+      LOG_LEVEL: INFO
       MODEL_NAME: local/gemma:2b
       CODE_MODEL_NAME: local/codegemma:2b
       EMBED_MODEL_NAME: local/nomic-embed-text

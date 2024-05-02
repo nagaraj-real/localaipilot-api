@@ -20,12 +20,10 @@ PERSIST_DIR = "/ragstorage"
 
 def chat_with_llm(messages):
      resp = chat_llm.chat(messages)
-     log.info(f"Response from llm:{resp}")
      return ([resp.message],resp.message.content)
     
 def chat_with_llm_stream(messages):
      resp = chat_llm.stream_chat(messages)
-     log.info(f"Response from llm:{resp}")
      return resp
 
 def chat_with_memory(query,chat_memory:ChatMemory,stream:bool=False):
@@ -44,12 +42,11 @@ def complete_code(prefix_code,suffix_code,pre_context,is_stream=False):
           suffix_code=suffix_code,
           pre_context= "" if pre_context is None else pre_context
      )
-     log.info(f"Completion prompt:{completion_prompt}")
+     log.debug(f"Completion prompt:{completion_prompt}")
      if(is_stream):
           resp = code_llm.stream_complete(completion_prompt)
      else:
           resp = code_llm.complete(completion_prompt)
-     log.info(f"Response from llm:{resp}")
      return resp
 
 
