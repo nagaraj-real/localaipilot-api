@@ -1,6 +1,8 @@
 ## Container Mode
 
-In Container Mode, LLM API Container acts as a bridge between Ollama container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Resource Configuration etc.
+In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Resource Configuration.
+
+---
 
 ### Pre-requisites
 
@@ -11,13 +13,13 @@ In Container Mode, LLM API Container acts as a bridge between Ollama container a
 
   Checkout [Useful links](#useful-links) for more information on configuring GPU for ollama.
 
-### Quick Start
+---
+
+### 🚀 Quick Start
 
 #### 1. Start containers using docker compose
 
-#### CPU
-
-Download [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml) and start
+#### CPU - [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml)
 
 ```sh
 curl \
@@ -27,9 +29,7 @@ https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/doc
 docker compose -f docker-compose-cpu.yml up
 ```
 
-#### NVIDIA® GPU
-
-Download [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml) and start.
+#### NVIDIA® GPU - [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml)
 
 ```sh
 curl  \
@@ -39,8 +39,7 @@ https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/doc
 docker compose -f docker-compose-gpu.yml up
 ```
 
-This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned
-on for cahing/searching chat history.
+This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned on for cahing/searching chat history.
 
 #### 2. Pull Ollama models
 
@@ -67,9 +66,11 @@ on for cahing/searching chat history.
   docker exec -it ollama-container ollama list
   ```
 
-### Advanced Configuration
+---
 
-#### Using a different model
+### 📘 Advanced Configuration
+
+#### Using a different Ollama model
 
 - Pull your preferred model from [ollama model library](https://ollama.com/library)
 
@@ -89,26 +90,6 @@ on for cahing/searching chat history.
   EMBED_MODEL_NAME: local/<embed-model-name>
   ```
 
-#### Using Remote models
-
-Remote models require API keys which can be configured in your docker compose file.
-
-Supported remote models - gemini, cohere
-
-Create your API keys
-
-Cohere - https://dashboard.cohere.com/api-keys
-
-Gemini - https://aistudio.google.com/app/apikey
-
-- Update model name and model key in docker compose environment variables.
-
-  ```env
-   MODEL_NAME: gemini/cohere
-   EMBED_MODEL_NAME: gemini/cohere
-   API_KEY: <API_KEY>
-  ```
-
 #### Chat History
 
 Chat history is cached in Redis which can be configured using the docker compose file.
@@ -120,7 +101,52 @@ By default the chat history is cached for 1 hour.
 Use docker compose volume (_ragdir_) to bind the folder containing documents for Q&A.
 The embeddings are stored in volume (_ragstorage_)
 
-## Standalone mode
+---
+
+### 🌐 Remote models
+
+Remote models require API keys which can be configured in your docker compose file.
+
+Supported remote models - gemini, cohere, openai
+
+Update model name and model key in docker compose environment variables.
+
+Supports {model}/{submodel} format
+
+- Gemini
+
+  https://aistudio.google.com/app/apikey
+
+  ```env
+   MODEL_NAME: gemini
+   EMBED_MODEL_NAME: gemini
+   API_KEY: <API_KEY>
+   EMBED_API_KEY: <API_KEY>
+  ```
+
+- Cohere
+
+  Create API keys https://dashboard.cohere.com/api-keys
+
+  ```env
+   MODEL_NAME: cohere
+   EMBED_MODEL_NAME: cohere/embed-english-v3.0
+   API_KEY: <API_KEY>
+   EMBED_API_KEY: <API_KEY>
+  ```
+
+- Open AI
+
+  Create API keys https://platform.openai.com/docs/quickstart/account-setup
+
+  ```env
+   MODEL_NAME: openai/gpt-3.5-turbo
+   EMBED_MODEL_NAME: openai/text-embedding-3-large
+   API_KEY: <API_KEY>
+   EMBED_API_KEY: <API_KEY>
+  ```
+
+## 🔗 Standalone mode
 
 In standalone mode, the extension connects directly with a running Ollama instance.
 Supported features: Code chat, Code completion, Explain/Review/Fix Code
@@ -131,7 +157,7 @@ Ollama instance up and running.
 
 Refer [Ollama Documentation](https://github.com/ollama/ollama) for detailed steps.
 
-### Quick Start
+### 🚀 Quick Start
 
 #### Update extension setting
 
