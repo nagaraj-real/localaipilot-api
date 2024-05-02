@@ -1,34 +1,12 @@
-## Standalone mode
+## Container Mode
 
-In standalone (non-container) mode, the extension connects directly to a running Ollama instance.
-
-Supported features: Code chat, Code completion, Explain/Review/Fix Code
-
-### Pre-requisites
-
-- Running Ollama Instance
-
-### Quick Start
-
-#### Update extension settings under standalone section
-
-- Configure the port (_ollamaPort_) and host (_ollamaHost_) of running ollama instance.
-- Configure model used for chat (_ollamaModel_)
-- Configure model used for code completion (_ollamaCodeModel_)
-
-## Container mode (Recommended)
-
-In container mode, the extension connects to an API Container that allows for more customizations
-and bridges an Ollama running container
-
-Supported features - Code chat, Code completion,Explain/Review/Fix Code,
-Document Q&A, Chat History(caching), Resource Configuration.
+In Container Mode, LLM API Container acts as a bridge between Ollama container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Resource Configuration etc.
 
 ### Pre-requisites
 
 - Install [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
-- [Optional] GPU (NVIDIA) -
+- **[Optional]** GPU (NVIDIA) -
   Download and install [NVIDIA® GPU drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
 
   Checkout [Useful links](#useful-links) for more information on configuring GPU for ollama.
@@ -37,36 +15,34 @@ Document Q&A, Chat History(caching), Resource Configuration.
 
 #### 1. Start containers using docker compose
 
-- Download docker compose file(CPU/GPU) and start
+#### CPU
 
-  #### CPU
+Download [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml) and start
 
-  Download [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml) and start
+```sh
+curl \
+https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml \
+-o docker-compose-cpu.yaml
 
-  ```sh
-  curl \
-  https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml \
-  -o docker-compose-cpu.yaml
+docker compose -f docker-compose-cpu.yml up
+```
 
-  docker compose -f docker-compose-cpu.yml up
-  ```
+#### NVIDIA® GPU
 
-  #### NVIDIA® GPU
+Download [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml) and start.
 
-  Download [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml) and start.
+```sh
+curl  \
+https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml \
+-o docker-compose-gpu.yaml
 
-  ```sh
-  curl  \
-  https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml \
-  -o docker-compose-gpu.yaml
+docker compose -f docker-compose-gpu.yml up
+```
 
-  docker compose -f docker-compose-gpu.yml up
-  ```
+This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned
+on for cahing/searching chat history.
 
-  This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned
-  on for storing/searching chat history.
-
-#### 2. Pull ollama models
+#### 2. Pull Ollama models
 
 - Chat Model
 
@@ -143,6 +119,26 @@ By default the chat history is cached for 1 hour.
 
 Use docker compose volume (_ragdir_) to bind the folder containing documents for Q&A.
 The embeddings are stored in volume (_ragstorage_)
+
+## Standalone mode
+
+In standalone mode, the extension connects directly with a running Ollama instance.
+Supported features: Code chat, Code completion, Explain/Review/Fix Code
+
+### Pre-requisites
+
+Ollama instance up and running.
+
+Refer [Ollama Documentation](https://github.com/ollama/ollama) for detailed steps.
+
+### Quick Start
+
+#### Update extension setting
+
+- Set the extension mode (_mode_) as "Standalone"
+- Configure the port (_ollamaPort_) and host (_ollamaHost_) of running ollama instance.
+- Configure model used for chat (_ollamaModel_)
+- Configure model used for code completion (_ollamaCodeModel_)
 
 ### Useful links
 
