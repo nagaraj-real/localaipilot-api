@@ -13,12 +13,16 @@ if [ "$model_name" = "cohere" ]; then
 elif [ "$model_name" = "gemini" ]; then
   pip install llama-index-llms-gemini | tee install_output.txt
   pip install google-generativeai | tee install_output.txt
+elif [ "$model_name" = "openai" ]; then
+  pip install llama-index-llms-openai | tee install_output.txt
 fi
 
 if [ "$embed_model_name" = "cohere" ]; then
   pip install llama-index-embeddings-cohere | tee install_output.txt
 elif [ "$embed_model_name" = "gemini" ]; then
   pip install llama-index-embeddings-gemini | tee install_output.txt
+elif [ "$embed_model_name" = "openai" ]; then
+  pip install llama-index-embeddings-openai | tee install_output.txt
 fi
 
 echo "model_name" "$model_name"

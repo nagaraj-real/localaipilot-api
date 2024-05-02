@@ -71,3 +71,10 @@ def get_user_message_query(query):
         content=f"""  {query}  """),
     ]
     return messages
+
+def extract_after_slash(text):
+  if "/" in text:
+    parts = text.split("/")
+    return (parts[0],parts[1])
+  else:
+    return (text,None)
