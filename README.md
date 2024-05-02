@@ -105,13 +105,19 @@ The embeddings are stored in volume (_ragstorage_)
 
 ### 🌐 Remote models
 
-Remote models require API keys which can be configured in your docker compose file.
+Remote models require API keys which can be configured in the docker compose file.
 
 Supported remote models - gemini, cohere, openai
 
 Update model name and model key in docker compose environment variables.
 
-Supports {provider}/{model} format
+Turn down ollama service if it's running as it will not be used for remote inference.
+
+```bash
+docker compose down ollama
+```
+
+Supports _{Provider}/{ModelName}_ format
 
 - Gemini
 
