@@ -25,46 +25,46 @@ def get_llm():
   if local_model_name is not None:
      log.info(f"using local model: {local_model_name}")
      return ollama_llm(local_model_name)
-  (model,submodel)=extract_after_slash(model_name)
-  log.info(f"using model: {model}")
-  match model:
+  (provider,model)=extract_after_slash(model_name)
+  log.info(f"using provider: {provider}")
+  match provider:
     case "cohere":
-        return cohere_llm()
+        return cohere_llm(model)
     case "gemini":
-        return gemini_llm()
+        return gemini_llm(model)
     case "openai":
-        return openai_llm(submodel)
+        return openai_llm(model)
     case _:
         raise Exception(f"Model not found: {model}")
 
 def get_code_llm():
   code_model_name= os.getenv("CODE_MODEL_NAME")
   if code_model_name is None:
-     raise Exception(f"Model not found: {code_model_name}") 
+     raise Exception(f"Code Model not found: {code_model_name}") 
   local_model_name=extract_after_local_slash(code_model_name)
   if local_model_name is not None:
      log.info(f"using local code model: {local_model_name}")
      return ollama_llm(local_model_name)
   else:
-     raise Exception(f"Model not found: {code_model_name}")  
+     raise Exception(f"Code Model not supported: {code_model_name}")  
   
 
 def get_embed_llm():
   embed_model_name= os.getenv("EMBED_MODEL_NAME")
   if embed_model_name is None:
-     return None
+     raise Exception(f"Embed Model not found: {embed_model_name}") 
   local_model_name=extract_after_local_slash(embed_model_name)
   if local_model_name is not None:
      log.info(f"using local embed model: {local_model_name}")
      return ollama_embed_llm(local_model_name)
-  (model,submodel)=extract_after_slash(embed_model_name)
-  log.info(f"using embed model: {model}")
-  match model:
+  (provider,model)=extract_after_slash(embed_model_name)
+  log.info(f"using embed provider: {provider}")
+  match provider:
     case "cohere":
-        return cohere_embed_llm(submodel)
+        return cohere_embed_llm(model)
     case "gemini":
-        return gemini_embed_llm()
+        return gemini_embed_llm(model)
     case "openai":
-        return openai_embed_llm(submodel)
+        return openai_embed_llm(model)
     case _:
-        return None
+        raise Exception(f"Embed Model not supported: {model}")

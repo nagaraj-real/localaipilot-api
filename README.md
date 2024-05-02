@@ -111,15 +111,15 @@ Supported remote models - gemini, cohere, openai
 
 Update model name and model key in docker compose environment variables.
 
-Supports {model}/{submodel} format
+Supports {provider}/{model} format
 
 - Gemini
 
-  https://aistudio.google.com/app/apikey
+  Create API keys https://aistudio.google.com/app/apikey
 
   ```env
-   MODEL_NAME: gemini
-   EMBED_MODEL_NAME: gemini
+   MODEL_NAME: gemini/gemini-pro
+   EMBED_MODEL_NAME: gemini/embedding-001
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
@@ -129,7 +129,7 @@ Supports {model}/{submodel} format
   Create API keys https://dashboard.cohere.com/api-keys
 
   ```env
-   MODEL_NAME: cohere
+   MODEL_NAME: cohere/command
    EMBED_MODEL_NAME: cohere/embed-english-v3.0
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
