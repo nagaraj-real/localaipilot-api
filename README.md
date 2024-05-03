@@ -18,19 +18,17 @@ In standalone (non-container) mode, the extension connects directly with Ollama 
 
 #### 3. Update the **mode** as "Standalone" in extension settings.
 
-**[Optional]** By default Ollama instance runs at localhost:11434. If the instance uses a different host/port,
-update in **ollamaHost** and **ollamaPort** extension settings.
-
 **[Optional]** Use a different model for chat or code model
 
 - Configure model used for chat using extension setting **ollamaModel**
 - Configure model used for code completion using extension setting **ollamaCodeModel**
 
+---
+
 ## Container Mode
 
 In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Remote models.
 
----
 
 ### Pre-requisites
 
@@ -40,8 +38,6 @@ In Container Mode, LLM API Container acts as a bridge between Ollama Container a
   Download and install [NVIDIA® GPU drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
 
   Checkout [Useful links](#useful-links) for more information on configuring GPU for ollama.
-
----
 
 ### 🚀 Quick Start
 
@@ -93,10 +89,11 @@ This will start Ollama and LLM API containers. The Cache(Redis) container is plu
   ```bash
   docker exec -it ollama-container ollama list
   ```
+#### 3. Update the **mode** as "Container" in extension settings.
 
 ---
 
-### 📘 Advanced Configuration
+### 📘 Advanced Configuration (Container Mode)
 
 #### Using a different Ollama model
 
@@ -131,7 +128,7 @@ The embeddings are stored in volume (_ragstorage_)
 
 ---
 
-### 🌐 Remote models
+### 🌐 Remote models (Container Mode)
 
 Remote models require API keys which can be configured in the docker compose file.
 
@@ -179,6 +176,7 @@ Supports _{Provider}/{ModelName}_ format
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
+---
 
 ### Useful links
 
