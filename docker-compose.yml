@@ -22,8 +22,6 @@ services:
     build:
       context: ./
       dockerfile: dockerfile
-    depends_on:
-      - ollama
     ports:
       - "5000:5000"
     networks:
@@ -34,31 +32,32 @@ services:
       - ./:/app
     container_name: llm-api-container
     environment:
-      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4 --reload
+      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=4 --threads=4 --reload
+      LOG_LEVEL: DEBUG
       MODEL_NAME: local/gemma:2b
-      CODE_MODEL_NAME: local/codegemma:2b
+      CODE_MODEL_NAME: local/deepseek-coder:6.7b-base
       EMBED_MODEL_NAME: local/nomic-embed-text
       API_KEY:
       EMBED_API_KEY:
       API_TIMEOUT: 600
-      OLLAMA_HOST: ollama
+      OLLAMA_HOST: host.docker.internal
       OLLAMA_PORT: 11434
       REDIS_HOST: cache
       REDIS_PORT: 6379
       REDIS_PASSWORD: redis-stack
       REDIS_EXPIRY: 3600
 
-  # cache:
-  #   image: redis/redis-stack:latest
-  #   restart: always
-  #   networks:
-  #     - llm-network
-  #   ports:
-  #     - "6379:6379"
-  #   environment:
-  #     REDIS_ARGS: "--requirepass redis-stack"
-  #   volumes:
-  #     - cachedir:/data
+  cache:
+    image: redis/redis-stack:latest
+    restart: always
+    networks:
+      - llm-network
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_ARGS: "--requirepass redis-stack"
+    volumes:
+      - cachedir:/data
 
 networks:
   llm-network:

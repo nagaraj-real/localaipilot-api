@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+  # Ollama container service
   ollama:
     image: ollama/ollama
     ports:
@@ -11,10 +12,10 @@ services:
       - ollama:/root/.ollama
     container_name: ollama-container
 
+  # LLM API container service for configurating RAG, Remote Models, Caching.
+  # Can be configured to connect with Ollama running inside a container/host.
   llmapi:
     image: nagaraj23/local-llm-api
-    depends_on:
-      - ollama
     ports:
       - "5000:5000"
     networks:
@@ -32,43 +33,56 @@ services:
       API_KEY:
       EMBED_API_KEY:
       API_TIMEOUT: 600
+
+      # Connect to Ollama running at host
+      #OLLAMA_HOST: host.docker.internal
+
+      # Connect to Ollama container service
       OLLAMA_HOST: ollama
+
       OLLAMA_PORT: 11434
       REDIS_HOST: cache
       REDIS_PORT: 6379
       REDIS_PASSWORD: redis-stack
       REDIS_EXPIRY: 3600
 
-  # Cache service is plug and play can be turned on if needed
-  # cache:
-  #   image: redis/redis-stack:latest
-  #   restart: always
-  #   networks:
-  #     - llm-network
-  #   ports:
-  #     - "6379:6379"
-  #   environment:
-  #     REDIS_ARGS: "--requirepass redis-stack"
-  #   volumes:
-  #     - cachedir:/data
+  # Redis cache service
+  # Supports caching chat history and searching history by keyword/chat Id
+  cache:
+    image: redis/redis-stack:latest
+    restart: always
+    networks:
+      - llm-network
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_ARGS: "--requirepass redis-stack"
+    volumes:
+      - cachedir:/data
 
 networks:
   llm-network:
 
 volumes:
   ollama:
+
+  # Volume mapping on host device path to store document embeddings.
   ragstorage:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: ./llmdata/ragstorage
+
+  # Volume mapping on host device path to store documents for Q & A.
   ragdir:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: ./llmdata/ragdir
+
+  # Cache directory for Redis
   cachedir:
     driver: local
     driver_opts:
