@@ -5,7 +5,7 @@ from gemini_llm import llm as gemini_llm,embed_llm as gemini_embed_llm
 from openai_llm import llm as openai_llm,embed_llm as openai_embed_llm
 import os
 
-from utils import extract_after_slash
+from utils import extract_after_slash, stop_tokens
 import logging
 
 log = logging.getLogger('app.llm')
@@ -44,7 +44,13 @@ def get_code_llm():
   local_model_name=extract_after_local_slash(code_model_name)
   if local_model_name is not None:
      log.info(f"using local code model: {local_model_name}")
-     return ollama_llm(local_model_name)
+     options= {
+          'temperature': 0,
+          'top_p': 0.9,
+          'num_predict': 256,
+          'stop': stop_tokens()
+      }
+     return ollama_llm(local_model_name,**options)
   else:
      raise Exception(f"Code Model not supported: {code_model_name}")  
   

@@ -78,3 +78,13 @@ def extract_after_slash(text):
     return (parts[0],parts[1])
   else:
     return (text,None)
+  
+def stop_tokens():
+    return ['<MID>', '<|file_separator|>', '<file_sep>', '<｜end▁of▁sentence｜>', '<｜begin▁of▁sentence｜>']
+
+
+def contains_any(string_set:list[str], target_string:str):
+    for s in string_set:
+        if s in target_string:
+            return (True,target_string.index(s))
+    return (False,-1)

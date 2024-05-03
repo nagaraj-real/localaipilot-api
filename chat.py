@@ -3,7 +3,7 @@ from utils import get_user_message_query
 
 from memory import ChatMemory
 from llm_model import get_llm,get_code_llm,get_embed_llm
-from code_prompt import code_prompt_tmpl
+from code_prompt import apply_provider_fim_tokens, code_prompt_tmpl
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader,load_index_from_storage,StorageContext,Settings
 
 import logging
@@ -36,12 +36,14 @@ def chat_with_memory(query,chat_memory:ChatMemory,stream:bool=False):
           return resp_string
      
 def complete_code(prefix_code,suffix_code,pre_context,is_stream=False):
+     model_name= os.getenv("CODE_MODEL_NAME")
      resp= ""
      completion_prompt = code_prompt_tmpl().format(
           prefix_code=prefix_code,
           suffix_code=suffix_code,
           pre_context= "" if pre_context is None else pre_context
      )
+     completion_prompt= apply_provider_fim_tokens(completion_prompt,model_name)
      log.debug(f"Completion prompt:{completion_prompt}")
      if(is_stream):
           resp = code_llm.stream_complete(completion_prompt)

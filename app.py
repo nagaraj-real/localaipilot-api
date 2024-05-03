@@ -22,7 +22,7 @@ app.logger.info('loaded Flask')
 
 from chat import chat_with_memory,complete_code,rag_chat,rag_ingest
 from memory import ChatMemory
-from utils import get_init_system_message
+from utils import contains_any, get_init_system_message, stop_tokens
 
 endpoint_busy = False
 
@@ -134,23 +134,23 @@ def chat_complete():
     suffix_code = data.get('suffix_code')
     pre_context = data.get('pre_context')
     is_stream = data.get('stream')
-    stop_string= '<|file_separator|>'
+    stop_strings= stop_tokens()
     if is_stream:
         completion_response = complete_code(prefix_code,suffix_code,pre_context,is_stream)
         app.logger.debug(f"completion_response: {completion_response}")
         def gen():
             for r in completion_response:
-                if stop_string in r.delta:
-                    index = r.delta.index(stop_string)
+                (contains_stop,stop_index)= contains_any(stop_strings,r.delta)
+                if contains_stop:
                     app.logger.debug(f"Delta from llm: {r.delta}")
-                    yield r.delta[:index]  # Yield text before stop string
+                    yield r.delta[:stop_index]  # Yield text before stop string
                     break
                 app.logger.debug(f"Delta from llm: {r.delta}")
                 yield r.delta
         return Response(gen())
     else:
         completion_response = complete_code(prefix_code,suffix_code,pre_context)
-        return jsonify({"chatResponse": substring_excluding_stop(str(completion_response),stop_string)})
+        return jsonify({"chatResponse": substring_excluding_stop(str(completion_response),'<|file_separator|>')})
 
 @app.route("/api/ragingest", methods = ['POST'])
 def ragingest():
