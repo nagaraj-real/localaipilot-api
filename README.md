@@ -1,6 +1,6 @@
 ## Container Mode
 
-In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Resource Configuration.
+In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Remote models.
 
 ---
 
@@ -107,7 +107,7 @@ The embeddings are stored in volume (_ragstorage_)
 
 Remote models require API keys which can be configured in the docker compose file.
 
-Supported remote models - gemini, cohere, openai
+Supports the models of gemini, cohere, openai LLM providers.
 
 Update model name and model key in docker compose environment variables.
 
@@ -154,23 +154,22 @@ Supports _{Provider}/{ModelName}_ format
 
 ## 🔗 Standalone mode
 
-In standalone mode, the extension connects directly with a running Ollama instance.
-Supported features: Code chat, Code completion, Explain/Review/Fix Code
-
-### Pre-requisites
-
-Ollama instance up and running.
-
-Refer [Ollama Documentation](https://github.com/ollama/ollama) for detailed steps.
+In standalone mode, the extension connects directly with Ollama instance running in your machine.
 
 ### 🚀 Quick Start
 
-#### Update extension setting
-
-- Set the extension mode (_mode_) as "Standalone"
-- Configure the port (_ollamaPort_) and host (_ollamaHost_) of running ollama instance.
-- Configure model used for chat (_ollamaModel_)
-- Configure model used for code completion (_ollamaCodeModel_)
+1. Download and install Ollama in your machine from [Ollama Website](https://ollama.com/download)
+2. Run the below commands to pull local models
+   - ollama pull gemma:2b
+   - ollama pull codegemma:2b
+3. Update the (_mode_) as "Standalone" in extension settings.
+    
+**[Optional]** By default Ollama instance runs at localhost:11434. If the instance uses a different host/port,
+   update in _ollamaHost_ and _ollamaPort_ extension settings.
+   
+**[Optional]** Use a different model for chat or code model
+  - Configure model used for chat _ollamaModel_
+  - Configure model used for code completion _ollamaCodeModel_
 
 ### Useful links
 
