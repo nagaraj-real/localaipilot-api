@@ -1,3 +1,31 @@
+## Standalone mode
+
+In standalone (non-container) mode, the extension connects directly with Ollama instance running in your machine.
+
+### 🚀 Quick Start
+
+#### 1. Download and install Ollama in your machine from [Ollama Website](https://ollama.com/download)
+
+#### 2. Pull local models
+
+```sh
+ ollama pull gemma:2b
+```
+
+```sh
+ ollama pull codegemma:2b
+```
+
+#### 3. Update the **mode** as "Standalone" in extension settings.
+
+**[Optional]** By default Ollama instance runs at localhost:11434. If the instance uses a different host/port,
+update in **ollamaHost** and **ollamaPort** extension settings.
+
+**[Optional]** Use a different model for chat or code model
+
+- Configure model used for chat using extension setting **ollamaModel**
+- Configure model used for code completion using extension setting **ollamaCodeModel**
+
 ## Container Mode
 
 In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Remote models.
@@ -39,7 +67,7 @@ https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/doc
 docker compose -f docker-compose-gpu.yml up
 ```
 
-This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned on for cahing/searching chat history.
+This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned on for caching/searching chat history.
 
 #### 2. Pull Ollama models
 
@@ -151,25 +179,6 @@ Supports _{Provider}/{ModelName}_ format
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
-
-## 🔗 Standalone mode
-
-In standalone mode, the extension connects directly with Ollama instance running in your machine.
-
-### 🚀 Quick Start
-
-1. Download and install Ollama in your machine from [Ollama Website](https://ollama.com/download)
-2. Run the below commands to pull local models
-   - ollama pull gemma:2b
-   - ollama pull codegemma:2b
-3. Update the (_mode_) as "Standalone" in extension settings.
-    
-**[Optional]** By default Ollama instance runs at localhost:11434. If the instance uses a different host/port,
-   update in _ollamaHost_ and _ollamaPort_ extension settings.
-   
-**[Optional]** Use a different model for chat or code model
-  - Configure model used for chat _ollamaModel_
-  - Configure model used for code completion _ollamaCodeModel_
 
 ### Useful links
 

@@ -9,8 +9,6 @@ services:
       - llm-network
     volumes:
       - ollama:/root/.ollama
-      - ragdir:/ragdir
-
     container_name: ollama-container
     deploy:
       resources:
