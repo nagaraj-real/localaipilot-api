@@ -40,7 +40,7 @@ In Container Mode, LLM API Container acts as a bridge between Ollama and the Ext
 - **[Optional]** GPU (NVIDIA) -
   Download and install [NVIDIA® GPU drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
 
-  Checkout [Useful links](#useful-links) for more information on configuring GPU for ollama.
+  Checkout [Useful links](#useful-information-and-links) for more information on configuring GPU for ollama.
 
 ### 🚀 Quick Start
 
@@ -55,7 +55,7 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 ```
 **Container Services**
 
-- **llmapi** : LLM API container service that connectes the Extension with Ollama. All configurations available through envrironment variables.
+- **llmapi** : LLM API container service that connectes the Extension with Ollama. All configurations available through ENV variables.
 - **ollama [Optional]** : Turn on this service for running [Ollama as container](https://github.com/nagaraj-real/localaipilot-api#running-ollama-as-container).
 - **cache [Optional]** : Turn on this service for caching and searching [chat history](https://github.com/nagaraj-real/localaipilot-api?tab=readme-ov-file#1-chat-history)
 
