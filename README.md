@@ -1,6 +1,6 @@
 ## Standalone Mode
 
-In standalone (non-container) mode, the extension connects directly with an Ollama instance running on your machine.
+In standalone (non-container) mode, the extension connects directly with an Ollama instance.
 
 ### 🚀 Quick Start
 
@@ -53,10 +53,17 @@ In Container Mode, LLM API Container acts as a bridge between Ollama and the Ext
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 ```
+**Container Services**
+
+- **llmapi** : LLM API container service that connectes the Extension with Ollama. All configurations available through envrironment variables.
+- **ollama [Optional]** : Turn on this service for running [Ollama as container](https://github.com/nagaraj-real/localaipilot-api#running-ollama-as-container).
+- **cache [Optional]** : Turn on this service for caching and searching [chat history](https://github.com/nagaraj-real/localaipilot-api?tab=readme-ov-file#1-chat-history)
 
 > [!TIP]
-> LLM API service can be started in isolation.
-> This configuration can be useful if Ollama is running on host. Check [Standalone Configuration](#standalone-mode)
+> Start with llmapi service. Add other services based on your needs.
+
+Configurating docker compose to connect with ollama running on localhost (via [ollama app](https://github.com/nagaraj-real/localaipilot-api?tab=readme-ov-file#1-install-ollama-on-your-machine-from-ollama-website))
+
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up llmapi
 
