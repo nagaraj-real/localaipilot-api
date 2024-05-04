@@ -169,7 +169,7 @@ Supports _{Provider}/{ModelName}_ format
 
 ### Useful information and links
 
-### Running Ollama as container
+#### Running Ollama as container
 
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up ollama
@@ -177,7 +177,7 @@ docker compose -f docker-compose-cpu|gpu.yml up ollama
 # update OLLAMA_HOST env variable to "ollama"
 ```
 
-All ollama commmands are available via docker now
+ollama commands are now available via docker.
 
 ```sh
 docker exec -it ollama-container ollama ls
