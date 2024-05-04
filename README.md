@@ -4,7 +4,7 @@ In standalone (non-container) mode, the extension connects directly with Ollama 
 
 ### 🚀 Quick Start
 
-#### 1. Download and install Ollama in your machine from [Ollama Website](https://ollama.com/download)
+#### 1. Install Ollama on your machine from [Ollama Website](https://ollama.com/download)
 
 #### 2. Pull local models
 
@@ -56,7 +56,7 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 
 > [!TIP]
 > LLM API service can be started in isolation as well.
-> This configuration can be useful if Ollama is running on host.
+> This configuration can be useful if Ollama is running on host. Check [Standalone Configuration](#standalone-mode)
 
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up llmapi
