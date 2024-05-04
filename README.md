@@ -46,7 +46,7 @@ In Container Mode, LLM API Container acts as a bridge between Ollama and the Ext
 
 #### 1. Start containers using docker compose
 
-#### Download docker compose and start the services.
+#### Download docker compose and start the services on demand.
 
 [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml) | [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml)
 
@@ -55,9 +55,8 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 ```
 
 > [!TIP]
-> LLM API service can be started in isolation as well.
+> LLM API service can be started in isolation.
 > This configuration can be useful if Ollama is running on host. Check [Standalone Configuration](#standalone-mode)
-
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up llmapi
 
@@ -70,22 +69,31 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi
 
 ### 📘 Advanced Configuration (Container Mode)
 
-#### Chat History
+#### 1. Chat History
 
-Chat history is cached in Redis which can be configured using the docker compose file.
-Caching allows searching previous chats using keyword or chat-id.
-By default the chat history is cached for 1 hour. Start the cache service to use Redis.
+Chat History can be saved in Redis by turning on cache service.
+By default, the chats are cached for 1 hour which is configurable in docker compose.
+This also enables searching previous chats via Extension by keyword or chat Id.
 
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up cache
 ```
 
-#### Document Q&A (RAG Chat)
+#### 2. Document Q&A (RAG Chat)
+
+Start Q&A chat using Retrieval-Augmented Generation (RAG) and embeddings.
+Pull a local model to generate and query embeddings.
+
+- Embed Model
+
+  ```sh
+  ollama pull nomic-embed-text
+  ```
 
 Use docker compose volume (_ragdir_) to bind the folder containing documents for Q&A.
 The embeddings are stored in volume (_ragstorage_)
 
-#### Using a different Ollama model
+#### 3. Using a different Ollama model
 
 - Pull your preferred model from [ollama model library](https://ollama.com/library)
 
@@ -107,7 +115,7 @@ The embeddings are stored in volume (_ragstorage_)
 
 ---
 
-### 🌐 Remote models (Container Mode)
+#### 🌐 Remote models (Container Mode)
 
 Remote models require API keys which can be configured in the docker compose file.
 
@@ -158,7 +166,10 @@ Supports _{Provider}/{ModelName}_ format
 
 ---
 
-### Run Ollama as container
+
+### Useful information and links
+
+### Running Ollama as container
 
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up ollama
@@ -171,10 +182,6 @@ All ollama commmands are available via docker now
 ```sh
 docker exec -it ollama-container ollama ls
 ```
-
-
-
-### Useful links
 
 #### GPU support help
 
