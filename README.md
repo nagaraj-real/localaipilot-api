@@ -1,24 +1,28 @@
-## Standalone mode
+## Standalone Mode
 
-In standalone (non-container) mode, the extension connects directly with Ollama instance running in your machine.
+In standalone (non-container) mode, the extension connects directly with an Ollama instance running on your machine.
 
 ### 🚀 Quick Start
 
-#### 1. Download and install Ollama in your machine from [Ollama Website](https://ollama.com/download)
+#### 1. Install Ollama on your machine from [Ollama Website](https://ollama.com/download)
 
 #### 2. Pull local models
 
-```sh
- ollama pull gemma:2b
-```
+- Chat Model
 
-```sh
- ollama pull codegemma:2b
-```
+  ```sh
+  ollama pull gemma:2b
+  ```
+
+- Code Model
+
+  ```sh
+  ollama pull codegemma:2b
+  ```
 
 #### 3. Update the **mode** as "Standalone" in extension settings.
 
-**[Optional]** Use a different model for chat or code model
+#### Use a different model for chat or code model **[Optional]**
 
 - Configure model used for chat using extension setting **ollamaModel**
 - Configure model used for code completion using extension setting **ollamaCodeModel**
@@ -27,8 +31,7 @@ In standalone (non-container) mode, the extension connects directly with Ollama 
 
 ## Container Mode
 
-In Container Mode, LLM API Container acts as a bridge between Ollama Container and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Remote models.
-
+In Container Mode, LLM API Container acts as a bridge between Ollama and the Extension enabling fine grained customizations and advanced features like Document Q&A, Chat History(caching), Remote models.
 
 ### Pre-requisites
 
@@ -43,66 +46,61 @@ In Container Mode, LLM API Container acts as a bridge between Ollama Container a
 
 #### 1. Start containers using docker compose
 
-#### CPU - [docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml)
+#### Download docker compose and start the services on demand.
+
+[docker-compose-cpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml) | [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml)
 
 ```sh
-curl \
-https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-cpu.yml \
--o docker-compose-cpu.yaml
-
-docker compose -f docker-compose-cpu.yml up
+docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 ```
 
-#### NVIDIA® GPU - [docker-compose-gpu.yml](https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml)
-
+> [!TIP]
+> LLM API service can be started in isolation.
+> This configuration can be useful if Ollama is running on host. Check [Standalone Configuration](#standalone-mode)
 ```sh
-curl  \
-https://raw.githubusercontent.com/nagaraj-real/localaipilot-api/main/recipes/docker-compose-gpu.yml \
--o docker-compose-gpu.yaml
+docker compose -f docker-compose-cpu|gpu.yml up llmapi
 
-docker compose -f docker-compose-gpu.yml up
+# update OLLAMA_HOST env variable to point localhost(host.docker.internal)
 ```
 
-This will start Ollama and LLM API containers. The Cache(Redis) container is plug and play which can be turned on for caching/searching chat history.
-
-#### 2. Pull Ollama models
-
-- Chat Model
-
-  ```bash
-  docker exec -it ollama-container ollama pull gemma:2b
-  ```
-
-- Code Model (code completion)
-
-  ```bash
-  docker exec -it ollama-container ollama pull codegemma:2b
-  ```
-
-- Embed Model (Optional) only if you are using document Q&A
-
-  ```bash
-  docker exec -it ollama-container ollama pull nomic-embed-text
-  ```
-
-- (Optional) List down local models downloaded
-  ```bash
-  docker exec -it ollama-container ollama list
-  ```
-#### 3. Update the **mode** as "Container" in extension settings.
+#### 2. Update the **mode** as "Container" in extension settings.
 
 ---
 
 ### 📘 Advanced Configuration (Container Mode)
 
-#### Using a different Ollama model
+#### 1. Chat History
+
+Chat History can be saved in Redis by turning on cache service.
+By default, the chats are cached for 1 hour which is configurable in docker compose.
+This also enables searching previous chats via Extension by keyword or chat Id.
+
+```sh
+docker compose -f docker-compose-cpu|gpu.yml up cache
+```
+
+#### 2. Document Q&A (RAG Chat)
+
+Start Q&A chat using Retrieval-Augmented Generation (RAG) and embeddings.
+Pull a local model to generate and query embeddings.
+
+- Embed Model
+
+  ```sh
+  ollama pull nomic-embed-text
+  ```
+
+Use docker compose volume (_ragdir_) to bind the folder containing documents for Q&A.
+The embeddings are stored in volume (_ragstorage_)
+
+#### 3. Using a different Ollama model
 
 - Pull your preferred model from [ollama model library](https://ollama.com/library)
 
   ```bash
-  docker exec -it ollama-container ollama pull <model-name>
-  docker exec -it ollama-container ollama pull <code-model-name>
-  docker exec -it ollama-container ollama pull <embed-model-name>
+  ollama pull <model-name>
+  ollama pull <code-model-name>
+  ollama pull <embed-model-name>
   ```
 
 - Update model name in docker compose environment variable.
@@ -115,20 +113,9 @@ This will start Ollama and LLM API containers. The Cache(Redis) container is plu
   EMBED_MODEL_NAME: local/<embed-model-name>
   ```
 
-#### Chat History
-
-Chat history is cached in Redis which can be configured using the docker compose file.
-Caching allows searching previous chats using keyword or chat-id.
-By default the chat history is cached for 1 hour.
-
-#### Document Q&A (RAG Chat)
-
-Use docker compose volume (_ragdir_) to bind the folder containing documents for Q&A.
-The embeddings are stored in volume (_ragstorage_)
-
 ---
 
-### 🌐 Remote models (Container Mode)
+#### 🌐 Remote models (Container Mode)
 
 Remote models require API keys which can be configured in the docker compose file.
 
@@ -176,9 +163,25 @@ Supports _{Provider}/{ModelName}_ format
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
+
 ---
 
-### Useful links
+
+### Useful information and links
+
+#### Running Ollama as container
+
+```sh
+docker compose -f docker-compose-cpu|gpu.yml up ollama
+
+# update OLLAMA_HOST env variable to "ollama"
+```
+
+ollama commands are now available via docker.
+
+```sh
+docker exec -it ollama-container ollama ls
+```
 
 #### GPU support help
 
