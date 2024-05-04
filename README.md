@@ -20,12 +20,12 @@ In standalone (non-container) mode, the extension connects directly with an Olla
   ollama pull codegemma:2b
   ```
 
-#### 3. Update the **mode** as "Standalone" in extension settings.
+#### 3. Update the **mode** as "Standalone" in extension (**Settings > Local AI Pilot > Mode**)
 
 #### Use a different model for chat or code model **[Optional]**
 
-- Configure model used for chat using extension setting **ollamaModel**
-- Configure model used for code completion using extension setting **ollamaCodeModel**
+- Configure model used for chat in extension (**Settings > Local AI Pilot > ollamaModel**)
+- Configure model used for code completion in extension (**Settings > Local AI Pilot > ollamaCodeModel**)
 
 ---
 
@@ -70,7 +70,7 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi
 # update OLLAMA_HOST env variable to point localhost(host.docker.internal)
 ```
 
-#### 2. Update the **mode** as "Container" in extension settings.
+#### 2. Update the **mode** as "Container" in extension. (**Settings > Local AI Pilot > Mode**)
 
 ---
 
