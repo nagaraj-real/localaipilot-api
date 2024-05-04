@@ -1,6 +1,6 @@
 ## Standalone Mode
 
-In standalone (non-container) mode, the extension connects directly with Ollama instance running in your machine.
+In standalone (non-container) mode, the extension connects directly with an Ollama instance running on your machine.
 
 ### 🚀 Quick Start
 
