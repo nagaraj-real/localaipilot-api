@@ -32,9 +32,9 @@ services:
       - ./:/app
     container_name: llm-api-container
     environment:
-      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=4 --threads=4 --reload
+      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4 --reload
       LOG_LEVEL: DEBUG
-      MODEL_NAME: local/gemma:2b
+      MODEL_NAME: gemini/gemini-pro
       CODE_MODEL_NAME: local/deepseek-coder:6.7b-base
       EMBED_MODEL_NAME: local/nomic-embed-text
       API_KEY:

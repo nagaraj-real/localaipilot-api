@@ -2,9 +2,8 @@
 
 echo "installing dependencies"
 
-
-model_name="$MODEL_NAME"
-embed_model_name="$EMBED_MODEL_NAME"
+model_name="${MODEL_NAME%/*}"
+embed_model_name="${EMBED_MODEL_NAME%/*}"
 code_model_name="$CODE_MODEL_NAME"
 
 
