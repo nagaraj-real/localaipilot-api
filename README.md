@@ -176,7 +176,7 @@ Supports _{Provider}/{ModelName}_ format
 
 ### Useful information and links
 
-### Models 
+### Choosing Models 
 
 Choose models with large parameters (7b, 70b) for more accuracy.
 
