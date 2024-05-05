@@ -20,12 +20,12 @@ In standalone (non-container) mode, the extension connects directly with an Olla
   ollama pull codegemma:2b
   ```
 
-#### 3. Update the **mode** as "Standalone" in extension settings.
+#### 3. Update the **mode** as "Standalone" in extension (**Settings > Local AI Pilot > Mode**)
 
-#### Use a different model for chat or code model **[Optional]**
+#### [Using different models](#choosing-models) for chat/code completion **[Optional]**
 
-- Configure model used for chat using extension setting **ollamaModel**
-- Configure model used for code completion using extension setting **ollamaCodeModel**
+- Configure model used for chat in extension (**Settings > Local AI Pilot > ollamaModel**)
+- Configure model used for code completion in extension (**Settings > Local AI Pilot > ollamaCodeModel**)
 
 ---
 
@@ -40,7 +40,7 @@ In Container Mode, LLM API Container acts as a bridge between Ollama and the Ext
 - **[Optional]** GPU (NVIDIA) -
   Download and install [NVIDIA® GPU drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
 
-  Checkout [Useful links](#useful-information-and-links) for more information on configuring GPU for ollama.
+  Checkout [GPU support](#gpu-support-help) for more information.
 
 ### 🚀 Quick Start
 
@@ -70,7 +70,7 @@ docker compose -f docker-compose-cpu|gpu.yml up llmapi
 # update OLLAMA_HOST env variable to point localhost(host.docker.internal)
 ```
 
-#### 2. Update the **mode** as "Container" in extension settings.
+#### 2. Update the **mode** as "Container" in extension. (**Settings > Local AI Pilot > Mode**)
 
 ---
 
@@ -102,7 +102,7 @@ The embeddings are stored in volume (_ragstorage_)
 
 #### 3. Using a different Ollama model
 
-- Pull your preferred model from [ollama model library](https://ollama.com/library)
+- Pull your [preferred model](#choosing-models) from [ollama model library](https://ollama.com/library)
 
   ```bash
   ollama pull <model-name>
@@ -174,7 +174,36 @@ Supports _{Provider}/{ModelName}_ format
 ---
 
 
-### Useful information and links
+### Choosing Models 
+
+Choose models with large parameters (7b, 70b) for more accuracy.
+
+> [!WARNING]
+> Heavier models will require more processing power and memory.
+
+#### Chat Models
+
+You can choose any instruct model for chat.
+For better results, choose models that are trained for programming tasks. 
+
+[gemma:2b](https://ollama.com/library/gemma:2b)| [gemma:7b](https://ollama.com/library/gemma:7b) |
+[codellama:7b](https://ollama.com/library/codellama:7b)
+
+#### Code Completion Models
+
+For code completion, choose code models that supports FIM (fill-in-the-middle)
+
+[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b](https://ollama.com/library/codegemma:7b) | 
+[codellama:code](https://ollama.com/library/codellama:code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
+
+> [!IMPORTANT]  
+> Instruct based models are not supported for code completion.
+
+### Embed Models
+
+Choose any [embed model](https://ollama.com/library?q=embed) 
+
+---
 
 #### Running Ollama as container
 
@@ -189,6 +218,7 @@ ollama commands are now available via docker.
 ```sh
 docker exec -it ollama-container ollama ls
 ```
+---
 
 #### GPU support help
 
