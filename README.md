@@ -22,7 +22,7 @@ In standalone (non-container) mode, the extension connects directly with an Olla
 
 #### 3. Update the **mode** as "Standalone" in extension (**Settings > Local AI Pilot > Mode**)
 
-#### Use a different model for chat or code model **[Optional]**
+#### [Using different models](#choosing-models) for chat/code completion **[Optional]**
 
 - Configure model used for chat in extension (**Settings > Local AI Pilot > ollamaModel**)
 - Configure model used for code completion in extension (**Settings > Local AI Pilot > ollamaCodeModel**)
@@ -102,7 +102,7 @@ The embeddings are stored in volume (_ragstorage_)
 
 #### 3. Using a different Ollama model
 
-- Pull your preferred model from [ollama model library](https://ollama.com/library)
+- Pull your [preferred model](#choosing-models) from [ollama model library](https://ollama.com/library)
 
   ```bash
   ollama pull <model-name>
