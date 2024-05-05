@@ -176,6 +176,35 @@ Supports _{Provider}/{ModelName}_ format
 
 ### Useful information and links
 
+### Models 
+
+Choose models with large parameters (7b, 70b) for more accuracy.
+
+> [!WARNING]
+> Heavier models will require more processing power and memory.
+
+#### Chat Models
+
+You can choose any instruct model for chat.
+For better results, choose models that are trained for programming tasks. 
+
+[gemma:2b](https://ollama.com/library/gemma:2b)| [gemma:7b](https://ollama.com/library/gemma:7b) |
+[codellama:7b](https://ollama.com/library/codellama:7b)
+
+#### Code Completion Models
+
+For code completion, choose code models that supports FIM (fill-in-the-middle)
+
+[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b](https://ollama.com/library/codegemma:7b) | 
+[codellama:code](https://ollama.com/library/codellama:code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
+
+> [!IMPORTANT]  
+> Instruct based models are not supported for code completion.
+
+### Embed Models
+
+Choose any [embed model](https://ollama.com/library?q=embed) 
+
 #### Running Ollama as container
 
 ```sh
