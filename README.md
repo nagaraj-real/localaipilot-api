@@ -40,7 +40,7 @@ In Container Mode, LLM API Container acts as a bridge between Ollama and the Ext
 - **[Optional]** GPU (NVIDIA) -
   Download and install [NVIDIA® GPU drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
 
-  Checkout [Useful links](#useful-information-and-links) for more information on configuring GPU for ollama.
+  Checkout [GPU support](#gpu-support-help) for more information.
 
 ### 🚀 Quick Start
 
@@ -174,8 +174,6 @@ Supports _{Provider}/{ModelName}_ format
 ---
 
 
-### Useful information and links
-
 ### Choosing Models 
 
 Choose models with large parameters (7b, 70b) for more accuracy.
@@ -205,6 +203,8 @@ For code completion, choose code models that supports FIM (fill-in-the-middle)
 
 Choose any [embed model](https://ollama.com/library?q=embed) 
 
+---
+
 #### Running Ollama as container
 
 ```sh
@@ -218,6 +218,7 @@ ollama commands are now available via docker.
 ```sh
 docker exec -it ollama-container ollama ls
 ```
+---
 
 #### GPU support help
 
