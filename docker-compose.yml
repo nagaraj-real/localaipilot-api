@@ -34,8 +34,8 @@ services:
     environment:
       GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4 --reload
       LOG_LEVEL: DEBUG
-      MODEL_NAME: gemini/gemini-pro
-      CODE_MODEL_NAME: local/deepseek-coder:6.7b-base
+      MODEL_NAME: local/gemma:2b
+      CODE_MODEL_NAME: local/codegemma:2b
       EMBED_MODEL_NAME: local/nomic-embed-text
       API_KEY:
       EMBED_API_KEY:
