@@ -178,7 +178,7 @@ Supports _{Provider}/{ModelName}_ format
 
 Models trained on large number of parameters (7b, 70b) are generally more reliable and precise.
 Though, small models like gemma:2b and phi3 have surprised everyone by delivering better performance.
-Ultimately, choosing the ideal local model depends on your system's resource capacity and needs.
+Ultimately, choosing the ideal local model depends on your system's resource capacity and model's performace.
 
 > [!WARNING]
 > Heavier models will require more processing power and memory.
@@ -188,7 +188,7 @@ Ultimately, choosing the ideal local model depends on your system's resource cap
 You can choose any instruct model for chat.
 For better results, choose models that are trained for programming tasks. 
 
-[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) |
+[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) |
 [gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b)
 
 #### Code Completion Models
