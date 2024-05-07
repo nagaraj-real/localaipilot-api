@@ -195,7 +195,7 @@ For better results, choose models that are trained for programming tasks.
 
 For code completion, choose code models that supports FIM (fill-in-the-middle)
 
-[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b](https://ollama.com/library/codegemma:7b) | [codellama:code](https://ollama.com/library/codellama:code) | 
+[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b-code](https://ollama.com/library/codegemma:7b-code) | [codellama:code](https://ollama.com/library/codellama:code) | 
 [codellama:7b-code](https://ollama.com/library/codellama:7b-code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
 
 > [!IMPORTANT]  
