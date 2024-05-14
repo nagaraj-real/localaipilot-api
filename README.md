@@ -170,6 +170,16 @@ Supports _{Provider}/{ModelName}_ format
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
+- Anthropic
+
+  Create API keys https://www.anthropic.com/ and https://www.voyageai.com/
+
+  ```env
+   MODEL_NAME: anthropic/claude-3-opus-20240229
+   EMBED_MODEL_NAME: voyageai/voyage-2
+   API_KEY: <API_KEY>
+   EMBED_API_KEY: <VOYAGE_API_KEY>
+  ```
 
 ---
 

@@ -3,6 +3,7 @@ from cohere_llm import llm as cohere_llm,embed_llm as cohere_embed_llm
 from ollama_llm import llm as ollama_llm,embed_llm as ollama_embed_llm
 from gemini_llm import llm as gemini_llm,embed_llm as gemini_embed_llm
 from openai_llm import llm as openai_llm,embed_llm as openai_embed_llm
+from anthropic_llm import llm as anthropic_llm,embed_llm as voyage_embed_llm
 import os
 
 from utils import extract_after_slash, stop_tokens
@@ -34,6 +35,8 @@ def get_llm():
         return gemini_llm(model)
     case "openai":
         return openai_llm(model)
+    case "anthropic":
+        return anthropic_llm(model)
     case _:
         raise Exception(f"Model not found: {model}")
 
@@ -72,5 +75,7 @@ def get_embed_llm():
         return gemini_embed_llm(model)
     case "openai":
         return openai_embed_llm(model)
+    case "voyageai":
+        return voyage_embed_llm(model)
     case _:
         raise Exception(f"Embed Model not supported: {model}")

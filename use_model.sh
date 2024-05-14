@@ -14,6 +14,8 @@ elif [ "$model_name" = "gemini" ]; then
   pip install google-generativeai | tee install_output.txt
 elif [ "$model_name" = "openai" ]; then
   pip install llama-index-llms-openai | tee install_output.txt
+elif [ "$model_name" = "anthropic" ]; then
+  pip install llama-index-llms-anthropic | tee install_output.txt
 fi
 
 if [ "$embed_model_name" = "cohere" ]; then
@@ -22,6 +24,8 @@ elif [ "$embed_model_name" = "gemini" ]; then
   pip install llama-index-embeddings-gemini | tee install_output.txt
 elif [ "$embed_model_name" = "openai" ]; then
   pip install llama-index-embeddings-openai | tee install_output.txt
+elif [ "$embed_model_name" = "voyageai" ]; then
+  pip install llama-index-embeddings-voyageai | tee install_output.txt
 fi
 
 echo "model_name" "$model_name"
