@@ -22,7 +22,7 @@ In standalone (non-container) mode, the extension connects directly with an Olla
 
 #### 3. Update the **mode** as "Standalone" in the extension (**Settings > Local AI Pilot > Mode**).
 
-#### [Using different models](#choosing-models) for chat/code completion **[Optional]**
+#### [Using different models](#choosing-local-models) for chat/code completion **[Optional]**
 
 - Configure model used for chat in the extension (**Settings > Local AI Pilot > ollamaModel**).
 - Configure model used for code completion in the extension (**Settings > Local AI Pilot > ollamaCodeModel**).
@@ -102,7 +102,7 @@ The embeddings are stored in volume (_ragstorage_).
 
 #### 3. Using a different Ollama model
 
-- Pull your [preferred model](#choosing-models) from [ollama model library](https://ollama.com/library)
+- Pull your [preferred model](#choosing-local-models) from [ollama model library](https://ollama.com/library)
 
   ```bash
   ollama pull <model-name>
@@ -184,9 +184,11 @@ Supports _{Provider}/{ModelName}_ format
 ---
 
 
-### Choosing Models 
+### Choosing Local Models 
 
-Choose models with large parameters (7b, 70b) for more accuracy.
+Models trained on large number of parameters (7b, 70b) are generally more reliable and precise.
+Though, small models like gemma:2b and phi3 have surprised everyone by delivering better performance.
+Ultimately, choosing the ideal local model depends on your system's resource capacity and model's performace.
 
 > [!WARNING]
 > Heavier models will require more processing power and memory.
@@ -196,14 +198,14 @@ Choose models with large parameters (7b, 70b) for more accuracy.
 You can choose any instruct model for chat.
 For better results, choose models that are trained for programming tasks. 
 
-[gemma:2b](https://ollama.com/library/gemma:2b)| [gemma:7b](https://ollama.com/library/gemma:7b) |
-[codellama:7b](https://ollama.com/library/codellama:7b)
+[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) |
+[gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b)
 
 #### Code Completion Models
 
 For code completion, choose code models that supports FIM (fill-in-the-middle)
 
-[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b](https://ollama.com/library/codegemma:7b) | [codellama:code](https://ollama.com/library/codellama:code) | 
+[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b-code](https://ollama.com/library/codegemma:7b-code) | [codellama:code](https://ollama.com/library/codellama:code) | 
 [codellama:7b-code](https://ollama.com/library/codellama:7b-code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
 
 > [!IMPORTANT]  
