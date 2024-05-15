@@ -53,6 +53,7 @@ In Container Mode, the LLM API Container acts as a bridge between Ollama and the
 ```sh
 docker compose -f docker-compose-cpu|gpu.yml up llmapi [ollama] [cache]
 ```
+
 **Container Services**
 
 - **llmapi** : LLM API container service that connects the extension with Ollama. All configurations are available through ENV variables.
@@ -165,11 +166,12 @@ Supports _{Provider}/{ModelName}_ format
   Create API keys https://platform.openai.com/docs/quickstart/account-setup
 
   ```env
-   MODEL_NAME: openai/gpt-3.5-turbo
+   MODEL_NAME: openai/gpt-4o
    EMBED_MODEL_NAME: openai/text-embedding-3-large
    API_KEY: <API_KEY>
    EMBED_API_KEY: <API_KEY>
   ```
+
 - Anthropic
 
   Create API keys https://www.anthropic.com/ and https://www.voyageai.com/
@@ -183,8 +185,7 @@ Supports _{Provider}/{ModelName}_ format
 
 ---
 
-
-### Choosing Local Models 
+### Choosing Local Models
 
 Models trained on large number of parameters (7b, 70b) are generally more reliable and precise.
 Though, small models like gemma:2b and phi3 have surprised everyone by delivering better performance.
@@ -196,7 +197,7 @@ Ultimately, choosing the ideal local model depends on your system's resource cap
 #### Chat Models
 
 You can choose any instruct model for chat.
-For better results, choose models that are trained for programming tasks. 
+For better results, choose models that are trained for programming tasks.
 
 [gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) |
 [gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b)
@@ -205,7 +206,7 @@ For better results, choose models that are trained for programming tasks.
 
 For code completion, choose code models that supports FIM (fill-in-the-middle)
 
-[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b-code](https://ollama.com/library/codegemma:7b-code) | [codellama:code](https://ollama.com/library/codellama:code) | 
+[codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b-code](https://ollama.com/library/codegemma:7b-code) | [codellama:code](https://ollama.com/library/codellama:code) |
 [codellama:7b-code](https://ollama.com/library/codellama:7b-code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
 
 > [!IMPORTANT]  
@@ -213,7 +214,7 @@ For code completion, choose code models that supports FIM (fill-in-the-middle)
 
 ### Embed Models
 
-Choose any [embed model](https://ollama.com/library?q=embed) 
+Choose any [embed model](https://ollama.com/library?q=embed)
 
 ---
 
@@ -230,6 +231,7 @@ ollama commands are now available via docker.
 ```sh
 docker exec -it ollama-container ollama ls
 ```
+
 ---
 
 #### GPU support help

@@ -1,3 +1,4 @@
+import time
 from flask import Flask, Response,jsonify,make_response
 from flask import request
 import logging
@@ -32,6 +33,8 @@ redis_host= os.getenv("REDIS_HOST")
 redis_port= os.getenv("REDIS_PORT")
 redis_password= os.getenv("REDIS_PASSWORD")
 redis_expiry= os.getenv("REDIS_EXPIRY")
+
+r=None
 
 if redis_host and redis_port:
     try:
@@ -116,6 +119,7 @@ def query():
                 final_response=''
                 for r in chat_response:
                     final_response = r.message
+                    time.sleep(0.01)
                     yield r.message.content
                 app.logger.debug(f"Chat Response Recieved: {final_response}")
                 memory.augment_memory([final_response])
