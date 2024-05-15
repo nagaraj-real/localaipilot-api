@@ -127,7 +127,7 @@ The embeddings are stored in volume (_ragstorage_).
 
 Remote models require API keys which can be configured in the Docker Compose file.
 
-Supports the models of gemini, cohere, openai LLM providers.
+Supports the models of gemini, cohere, openai, anthropic LLM providers.
 
 Update model name and model key in docker compose environment variables.
 
@@ -189,7 +189,7 @@ Supports _{Provider}/{ModelName}_ format
 
 Models trained on large number of parameters (7b, 70b) are generally more reliable and precise.
 Though, small models like gemma:2b and phi3 have surprised everyone by delivering better performance.
-Ultimately, choosing the ideal local model depends on your system's resource capacity and model's performace.
+Ultimately, choosing the ideal local model depends on your system's resource capacity and model's performance.
 
 > [!WARNING]
 > Heavier models will require more processing power and memory.
