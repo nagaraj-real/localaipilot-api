@@ -183,6 +183,16 @@ Supports _{Provider}/{ModelName}_ format
    EMBED_API_KEY: <VOYAGE_API_KEY>
   ```
 
+- Mistral AI (codestral)
+
+  Create API keys https://console.mistral.ai/codestral
+
+  ```env
+   MODEL_NAME: mistralai
+   CODE_MODEL_NAME: mistralai
+   API_KEY: <API_KEY>
+  ```
+
 ---
 
 ### Choosing Local Models

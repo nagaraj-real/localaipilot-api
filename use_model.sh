@@ -4,7 +4,7 @@ echo "installing dependencies"
 
 model_name="${MODEL_NAME%/*}"
 embed_model_name="${EMBED_MODEL_NAME%/*}"
-code_model_name="$CODE_MODEL_NAME"
+code_model_name="${CODE_MODEL_NAME%/*}"
 
 
 if [ "$model_name" = "cohere" ]; then
@@ -16,6 +16,12 @@ elif [ "$model_name" = "openai" ]; then
   pip install llama-index-llms-openai | tee install_output.txt
 elif [ "$model_name" = "anthropic" ]; then
   pip install llama-index-llms-anthropic | tee install_output.txt
+elif [ "$model_name" = "mistralai" ]; then
+  pip install llama-index-llms-mistralai | tee install_output.txt
+fi
+
+if [ "$code_model_name" = "mistralai" ]; then
+  pip install llama-index-llms-mistralai | tee install_output.txt
 fi
 
 if [ "$embed_model_name" = "cohere" ]; then

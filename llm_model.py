@@ -4,6 +4,7 @@ from ollama_llm import llm as ollama_llm,embed_llm as ollama_embed_llm
 from gemini_llm import llm as gemini_llm,embed_llm as gemini_embed_llm
 from openai_llm import llm as openai_llm,embed_llm as openai_embed_llm
 from anthropic_llm import llm as anthropic_llm,embed_llm as voyage_embed_llm
+from mistralai_llm import llm as mistralai_llm
 import os
 
 from utils import extract_after_slash, stop_tokens
@@ -37,6 +38,8 @@ def get_llm():
         return openai_llm(model)
     case "anthropic":
         return anthropic_llm(model)
+    case "mistralai":
+        return mistralai_llm(model)
     case _:
         raise Exception(f"Model not found: {model}")
 
@@ -54,8 +57,12 @@ def get_code_llm():
           'stop': stop_tokens()
       }
      return ollama_llm(local_model_name,**options)
-  else:
-     raise Exception(f"Code Model not supported: {code_model_name}")  
+  (provider,model)=extract_after_slash(code_model_name)
+  match provider:
+    case "mistralai":
+        return mistralai_llm(model)
+    case _:
+        raise Exception(f"Model not found: {model}")
   
 
 def get_embed_llm():

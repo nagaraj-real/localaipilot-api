@@ -17,5 +17,8 @@ def apply_provider_fim_tokens(prompt:str,model_name:str=""):
     elif "starcoder" in model_name:
         prompt = prompt.replace('<|fim_prefix|>', '<fim_prefix>').replace('<|fim_suffix|>', '<fim_suffix>').replace('<|fim_middle|>', '<fim_middle>')
         prompt = prompt.replace('<|file_separator|>', '<file_sep>')
+    elif "mistral" in model_name:
+        prompt = prompt.replace('<|fim_prefix|>', '[PREFIX]').replace('<|fim_suffix|>', '[SUFFIX]').replace('<|fim_middle|>', '[MIDDLE]')
+        prompt = prompt.replace('<|file_separator|>', '#')
     return prompt
 

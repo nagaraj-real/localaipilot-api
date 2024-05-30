@@ -5,3 +5,4 @@ LICENSE
 recipes
 __pycache__
 storage
+venv
