@@ -17,6 +17,8 @@ ENV PYTHONUNBUFFERED 1
 
 COPY . .
 
+COPY ./ragdir /ragdir
+
 ENTRYPOINT ["sh", "-c", "./use_model.sh && gunicorn app:app"]
 
 

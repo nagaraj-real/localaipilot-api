@@ -21,7 +21,6 @@ services:
     networks:
       - llm-network
     volumes:
-      - ragdir:/ragdir
       - ragstorage:/ragstorage
     container_name: llm-api-container
     environment:
@@ -66,10 +65,4 @@ networks:
 volumes:
   ollama:
   ragstorage:
-  ragdir:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /ragdir
   cachedir:
