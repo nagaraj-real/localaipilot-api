@@ -71,5 +71,5 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /app/ragdir
+      device: /ragdir
   cachedir:

@@ -6,6 +6,9 @@
   "shutdownAction": "stopCompose",
   "customizations": {
     "vscode": {
+      "settings": {
+        "localaipilot.general.mode": "container"
+      },
       "extensions": [
         "ms-python.python",
         "cweijan.vscode-redis-client",
