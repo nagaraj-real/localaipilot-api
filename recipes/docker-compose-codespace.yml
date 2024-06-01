@@ -25,7 +25,7 @@ services:
       - ragstorage:/ragstorage
     container_name: llm-api-container
     environment:
-      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --access-logfile /app/app.log --log-file /app/error.log
+      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --workers=1 --threads=4 --access-logfile /app/app.log --log-file /app/error.log
       LOG_LEVEL: INFO
       MODEL_NAME: local/gemma:2b
       CODE_MODEL_NAME: local/codegemma:2b
