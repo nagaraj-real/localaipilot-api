@@ -67,4 +67,9 @@ volumes:
   ollama:
   ragstorage:
   ragdir:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /app/ragdir
   cachedir:
