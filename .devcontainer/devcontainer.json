@@ -1,6 +1,6 @@
 {
   "name": "Local AI Pilot",
-  "dockerComposeFile": "../../recipes/docker-compose-cpu.yml",
+  "dockerComposeFile": "../recipes/docker-compose-cpu.yml",
   "service": "llmapi",
   "workspaceFolder": "/app",
   "shutdownAction": "stopCompose",
