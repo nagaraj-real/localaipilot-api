@@ -1,5 +1,5 @@
 {
-  "name": "Local AI Pilot",
+  "name": "Local AI Pilot CodeSpace",
   "dockerComposeFile": "../../recipes/docker-compose-codespace.yml",
   "service": "llmapi",
   "workspaceFolder": "/app",

@@ -65,27 +65,6 @@ networks:
 
 volumes:
   ollama:
-
-  # Volume mapping on host device path to store document embeddings.
   ragstorage:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./llmdata/ragstorage
-
-  # Volume mapping on host device path to store documents for Q & A.
   ragdir:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./llmdata/ragdir
-
-  # Cache directory for Redis
   cachedir:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./llmdata/cachedir
