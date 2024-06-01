@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  # Ollama container service
+  ollama:
+    image: ghcr.io/nagaraj-real/ollama:gemma
+    ports:
+      - "11434:11434"
+    networks:
+      - llm-network
+    volumes:
+      - ollama:/root/.ollama
+    container_name: ollama-container
+
+  # LLM API container service for configurating RAG, Remote Models, Caching.
+  # Can be configured to connect with Ollama running inside a container/host.
+  llmapi:
+    image: nagaraj23/local-llm-api
+    ports:
+      - "5000:5000"
+    networks:
+      - llm-network
+    volumes:
+      - ragdir:/ragdir
+      - ragstorage:/ragstorage
+    container_name: llm-api-container
+    environment:
+      GUNICORN_CMD_ARGS: --bind=0.0.0.0:5000 --access-logfile /app/app.log --log-file /app/error.log
+      LOG_LEVEL: INFO
+      MODEL_NAME: local/gemma:2b
+      CODE_MODEL_NAME: local/codegemma:2b
+      EMBED_MODEL_NAME: local/nomic-embed-text
+      API_KEY:
+      EMBED_API_KEY:
+      API_TIMEOUT: 600
+
+      # Connect to Ollama running at host
+      #OLLAMA_HOST: host.docker.internal
+
+      # Connect to Ollama container service
+      OLLAMA_HOST: ollama
+
+      OLLAMA_PORT: 11434
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis-stack
+      REDIS_EXPIRY: 3600
+
+  # Redis cache service
+  # Supports caching chat history and searching history by keyword/chat Id
+  cache:
+    image: redis/redis-stack:latest
+    restart: always
+    networks:
+      - llm-network
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_ARGS: "--requirepass redis-stack"
+    volumes:
+      - cachedir:/data
+
+networks:
+  llm-network:
+
+volumes:
+  ollama:
+
+  # Volume mapping on host device path to store document embeddings.
+  ragstorage:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/ragstorage
+
+  # Volume mapping on host device path to store documents for Q & A.
+  ragdir:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/ragdir
+
+  # Cache directory for Redis
+  cachedir:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./llmdata/cachedir

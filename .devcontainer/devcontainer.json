@@ -1,0 +1,16 @@
+{
+  "name": "Local AI Pilot",
+  "dockerComposeFile": "../recipes/docker-compose-cpu.yml",
+  "service": "llmapi",
+  "workspaceFolder": "/app",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "cweijan.vscode-redis-client",
+        "nr-codetools.localaipilot"
+      ]
+    }
+  }
+}
