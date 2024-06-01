@@ -1,3 +1,5 @@
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/nagaraj-real/localaipilot-api?devcontainer_path=.devcontainer%2Fcodespaces%2Fdevcontainer.json)
+
 ## Standalone Mode
 
 In standalone (non-container) mode, the extension connects directly with an Ollama instance.
