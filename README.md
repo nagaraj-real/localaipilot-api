@@ -211,7 +211,7 @@ Ultimately, choosing the ideal local model depends on your system's resource cap
 You can choose any instruct model for chat.
 For better results, choose models that are trained for programming tasks.
 
-[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) |
+[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) | [qwen2:1.5b](https://ollama.com/library/qwen2:1.5b) |
 [gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b)
 
 #### Code Completion Models
@@ -219,7 +219,7 @@ For better results, choose models that are trained for programming tasks.
 For code completion, choose code models that supports FIM (fill-in-the-middle)
 
 [codegemma:2b](https://ollama.com/library/codegemma:2b) | [codegemma:7b-code](https://ollama.com/library/codegemma:7b-code) | [codellama:code](https://ollama.com/library/codellama:code) |
-[codellama:7b-code](https://ollama.com/library/codellama:7b-code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base)
+[codellama:7b-code](https://ollama.com/library/codellama:7b-code) | [deepseek-coder:6.7b-base](https://ollama.com/library/deepseek-coder:6.7b-base) | [granite-code:3b-base](https://ollama.com/library/granite-code:3b-base)
 
 > [!IMPORTANT]  
 > Instruct based models are not supported for code completion.
