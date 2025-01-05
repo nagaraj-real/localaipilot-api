@@ -19,6 +19,8 @@ COPY . .
 
 COPY ./ragdir /ragdir
 
+RUN chmod +x use_model.sh
+
 ENTRYPOINT ["sh", "-c", "./use_model.sh && gunicorn app:app"]
 
 
