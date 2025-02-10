@@ -1,4 +1,10 @@
+
+## Open in an Online IDE of your choice:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/nagaraj-real/localaipilot-api)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/nagaraj-real/localaipilot-api?devcontainer_path=.devcontainer%2Fcodespaces%2Fdevcontainer.json)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/nagaraj-real/localaipilot-api)
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/nagaraj-real/localaipilot-api)
 
 ## Standalone Mode
 
