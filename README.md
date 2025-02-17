@@ -217,8 +217,8 @@ Ultimately, choosing the ideal local model depends on your system's resource cap
 You can choose any instruct model for chat.
 For better results, choose models that are trained for programming tasks.
 
-[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) | [qwen2:1.5b](https://ollama.com/library/qwen2:1.5b) |
-[gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b)
+[gemma:2b](https://ollama.com/library/gemma:2b) | [phi3](https://ollama.com/library/phi3) | [llama3](https://ollama.com/library/llama3) | [deepseek-r1](https://ollama.com/library/deepseek-r1) |
+[gemma:7b](https://ollama.com/library/gemma:7b) | [codellama:7b](https://ollama.com/library/codellama:7b) |  [qwen2:1.5b](https://ollama.com/library/qwen2:1.5b)
 
 #### Code Completion Models
 
