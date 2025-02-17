@@ -15,7 +15,7 @@ services:
   # LLM API container service for configurating RAG, Remote Models, Caching.
   # Can be configured to connect with Ollama running inside a container/host.
   llmapi:
-    image: nagaraj23/local-llm-api
+    image: ghcr.io/nagaraj-real/local-llm-api:latest
     ports:
       - "5000:5000"
     networks:
